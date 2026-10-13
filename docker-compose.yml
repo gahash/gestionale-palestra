@@ -1,0 +1,43 @@
+# Uso: docker compose up -d
+# Poi apri http://localhost:8080 (o la porta scelta) - nessun dominio fisso richiesto.
+# Configurazione tramite il file .env nella root del progetto (copiare da .env.example).
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-gym_studio}
+      MYSQL_USER: ${DB_USER:-gymstudio}
+      MYSQL_PASSWORD: ${DB_PASS:-changeme}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-changeme_root}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: db
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  db_data:

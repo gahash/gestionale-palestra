@@ -1,0 +1,33 @@
+# =====================================================================
+# Gym Studio - configurazione Apache (hosting condiviso standard)
+# =====================================================================
+
+RewriteEngine On
+
+# --- API: qualsiasi richiesta /api/... viene gestita da api/index.php ---
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ api/index.php [L]
+
+# --- sitemap.xml "tradizionale" servita dal generatore dinamico ---
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# --- Sicurezza: nega l'accesso diretto a file/cartelle sensibili ---
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+RewriteRule ^(src|sql)/ - [F,L]
+RewriteRule ^storage/(uploads|backups)/ - [F,L]
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Disabilita il listing delle directory
+Options -Indexes
+
+# Pagina 404 personalizzata (opzionale)
+# ErrorDocument 404 /404.php

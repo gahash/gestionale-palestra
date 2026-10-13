@@ -1,0 +1,43 @@
+# Configurazione locale e segreti
+.env
+.env.*
+!.env.example
+
+# Dipendenze
+vendor/
+node_modules/
+
+# Log
+logs/
+*.log
+
+# File caricati e backup (dati reali degli utenti)
+/storage/uploads/*
+!/storage/uploads/.htaccess
+!/storage/uploads/foto/
+/storage/uploads/foto/*
+!/storage/uploads/foto/.gitkeep
+!/storage/uploads/certificati/
+/storage/uploads/certificati/*
+!/storage/uploads/certificati/.gitkeep
+/storage/backups/*
+!/storage/backups/.htaccess
+
+# Dump SQL (versionati solo schema, seed e script di manutenzione)
+*.sql
+!/sql/schema.sql
+!/sql/seed.sql
+!/sql/maintenance/*.sql
+
+# Immagine stock con licenza (non redistribuibile)
+/assets/foto-hero.jpg
+
+# Archivi e backup
+*.zip
+*.bak
+
+# Sistema operativo / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
