@@ -1,5 +1,7 @@
 # Gym Studio — Gestionale palestra + landing page
 
+[![Controllo sintassi PHP](https://github.com/gahash/gestionale-palestra/actions/workflows/php-lint.yml/badge.svg)](https://github.com/gahash/gestionale-palestra/actions/workflows/php-lint.yml)
+
 Applicazione web per la gestione di una palestra / studio di personal training: una **landing page pubblica** con modulo di prenotazione e un **gestionale riservato** per clienti, abbonamenti, appuntamenti, pagamenti e finanze.
 
 Scritta in **PHP 8 puro (senza framework) + MySQL/MariaDB**, senza dipendenze da installare (nessun `composer install` o `npm install`): gira su un comune hosting condiviso PHP/MySQL oppure in Docker.
